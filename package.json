@@ -1,0 +1,17 @@
+{
+  "name": "stream-adventure-solutions",
+  "version": "0.0.1",
+  "description": "A set of solutions to Workshopper's Stream Adventure workshop.",
+  "author": "Chrisna Aing <chrisna@chrisna.org> (https://github.com/ccrazy88)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ccrazy88/stream-adventure-solutions.git"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^3.19.0"
+  },
+  "dependencies": {
+    "strftime": "^0.10.0"
+  }
+}
