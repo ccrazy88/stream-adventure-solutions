@@ -1,4 +1,4 @@
-var fs = require("fs");
+const fs = require("fs");
 
-var path = process.argv[2];
+const path = process.argv[2];
 fs.createReadStream(path).pipe(process.stdout);
