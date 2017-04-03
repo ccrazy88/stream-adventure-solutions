@@ -12,6 +12,7 @@
     "eslint": "^3.19.0"
   },
   "dependencies": {
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "websocket-stream": "^3.3.3"
   }
 }
