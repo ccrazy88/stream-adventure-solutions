@@ -9,7 +9,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^6.0.1"
+    "eslint": "^6.2.2"
   },
   "dependencies": {
     "request": "^2.88.0",
