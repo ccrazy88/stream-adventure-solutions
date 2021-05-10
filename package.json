@@ -9,8 +9,8 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^7.5.0",
-    "prettier": "^2.0.5"
+    "eslint": "^7.26.0",
+    "prettier": "^2.3.0"
   },
   "dependencies": {
     "request": "^2.88.2",
