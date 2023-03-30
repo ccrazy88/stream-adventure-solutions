@@ -9,11 +9,10 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^8.27.0",
-    "prettier": "^2.7.1"
+    "eslint": "^8.37.0",
+    "prettier": "^2.8.7"
   },
   "dependencies": {
-    "request": "^2.88.2",
     "websocket-stream": "^5.5.2"
   }
 }

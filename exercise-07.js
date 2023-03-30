@@ -1,16 +1,65 @@
-const UppercaseTransform = require("./UppercaseTransform");
-const http = require("http");
+const Transform = require("stream").Transform;
 
-const port = process.argv[2];
-const server = http.createServer((req, res) => {
-  if (req.method !== "POST") {
-    res.writeHead(405);
-    return res.end();
+class LineTransform extends Transform {
+  constructor(options) {
+    super(options);
+    this.currentChunk = null;
+    this.addCharToCurrentChunk = this.addCharToCurrentChunk.bind(this);
+    this.pushCurrentChunkIfNeeded = this.pushCurrentChunkIfNeeded.bind(this);
+    this._transform = this._transform.bind(this);
   }
 
-  res.writeHead(200, { "Content-Type": "text/plain" });
-  const uppercaseTransform = new UppercaseTransform();
-  req.pipe(uppercaseTransform).pipe(res);
-});
+  addCharToCurrentChunk(char) {
+    if (this.currentChunk) {
+      this.currentChunk += char;
+    } else {
+      this.currentChunk = char;
+    }
+  }
 
-server.listen(port);
+  pushCurrentChunkIfNeeded() {
+    if (this.currentChunk) {
+      this.push(this.currentChunk);
+      this.currentChunk = null;
+    }
+  }
+
+  _transform(chunk, encoding, callback) {
+    for (const char of chunk.toString()) {
+      this.addCharToCurrentChunk(char);
+      if (char === "\n") {
+        this.pushCurrentChunkIfNeeded();
+      }
+    }
+    callback();
+  }
+}
+
+class AlternateCaseTransform extends Transform {
+  constructor(options) {
+    super(options);
+    this.lowercase = true;
+    this._transform = this._transform.bind(this);
+  }
+
+  processChunk(chunk) {
+    const stringChunk = chunk.toString();
+    const casedChunk = this.lowercase
+      ? stringChunk.toLowerCase()
+      : stringChunk.toUpperCase();
+    this.lowercase = !this.lowercase;
+    return casedChunk;
+  }
+
+  _transform(chunk, encoding, callback) {
+    const casedChunk = this.processChunk(chunk);
+    callback(null, casedChunk);
+  }
+}
+
+const lineTransform = new LineTransform();
+const alternateCaseTransform = new AlternateCaseTransform();
+process.stdin
+  .pipe(lineTransform)
+  .pipe(alternateCaseTransform)
+  .pipe(process.stdout);
