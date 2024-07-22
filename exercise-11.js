@@ -1,4 +1,6 @@
-const ws = require("websocket-stream");
+const WebSocket = require('ws');
+const ws = new WebSocket('ws://localhost:8099')
+const stream = WebSocket.createWebSocketStream(ws)
 
-const stream = ws("ws://localhost:8099");
-stream.write("hello\n");
+stream.pipe(process.stdout);
+stream.end("hello\n");

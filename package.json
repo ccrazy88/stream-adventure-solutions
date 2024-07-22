@@ -10,9 +10,9 @@
   "license": "MIT",
   "devDependencies": {
     "eslint": "^8.57.0",
-    "prettier": "^3.3.2"
+    "prettier": "^3.3.3"
   },
   "dependencies": {
-    "websocket-stream": "^5.5.2"
+    "ws": "^8.18.0"
   }
 }
